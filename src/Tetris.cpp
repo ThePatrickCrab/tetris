@@ -1,5 +1,9 @@
 #include "Tetris.h"
 
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/VideoMode.hpp>
+
 #include <exception>
 
 // Upon creation set variables to default values and set the grid
@@ -182,7 +186,8 @@ void Tetris::printGrid()
 		for(int j = 1; j < 21; j++)
 			if(grid[i][j] >= 0 && grid[i][j] < 16)
 			{
-				block[grid[i][j]].setPosition(18 * i - 15, 18 * j - 15);
+				block[grid[i][j]].setPosition(static_cast<float>(18 * i - 15),
+				    static_cast<float>(18 * j - 15));
 
 				window.draw(block[grid[i][j]]);
 
@@ -233,7 +238,8 @@ void Tetris::drawNumbers()
 		temp -= i;
 		temp /= 10;
 
-		num[i].setPosition(240 - (digit++ * 20), 45);
+		num[i].setPosition(
+		    static_cast<float>(240 - (digit++ * 20)), static_cast<float>(45));
 		window.draw(num[i]);
 	}
 }

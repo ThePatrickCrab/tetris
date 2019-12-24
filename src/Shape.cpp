@@ -1,6 +1,6 @@
 #include "Shape.h"
+
 #include <cstdlib>
-#include <ctime>
 
 // Upon construction seed the random number generator and set lines to 0.
 Shape::Shape(void)

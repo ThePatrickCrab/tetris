@@ -2,7 +2,9 @@
 
 #include "Shape.h"
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 /*
 The class Tetris is the game of tetris. It requires the class Shape

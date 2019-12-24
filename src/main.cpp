@@ -1,12 +1,11 @@
 #include "Tetris.h"
 
-#include <SFML/Graphics.hpp>
-
-#include <stdlib.h>
+#include <ctime>
+#include <cstdlib>
 
 int main()
 {
-	srand(time(NULL));
+	srand(static_cast<unsigned>(time(NULL)));
 
 	Tetris game;
 	game.play();
