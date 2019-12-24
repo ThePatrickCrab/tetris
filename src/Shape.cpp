@@ -165,11 +165,17 @@ block coordinates the same as the temp coordinates and return false.
 bool Shape::protect(int grid[][22])
 {
 	for(int i = 0; i < 4; i++)
+	{
 		if(grid[temp[i].getX()][temp[i].getY()] < 7)
+		{
 			return true;
+		}
+	}
 
 	for(int i = 0; i < 4; i++)
+	{
 		block[i].setXY(temp[i].getX(), temp[i].getY());
+	}
 
 	return false;
 }
@@ -189,10 +195,14 @@ void Shape::updateGrid(bool done, int grid[][22])
 		dropPreview(grid);
 
 		for(int i = 0; i < 4; i++)
+		{
 			grid[preview[i].getX()][preview[i].getY()] = 15;
+		}
 
 		for(int i = 0; i < 4; i++)
+		{
 			grid[block[i].getX()][block[i].getY()] = shapeID;
+		}
 
 		return;
 	}

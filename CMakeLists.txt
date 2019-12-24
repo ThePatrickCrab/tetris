@@ -14,3 +14,5 @@ target_include_directories(tetris PRIVATE include)
 target_link_libraries(tetris ${CONAN_LIBS})
 
 target_compile_features(tetris PRIVATE cxx_std_17)
+
+# TODO: copy files from resources/ to output directory

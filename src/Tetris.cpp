@@ -16,9 +16,6 @@ Tetris::Tetris(void)
     , lines(0)
     , window(sf::VideoMode(273, 366, 32), "Tetris")
 {
-	sf::Texture texture[16];
-	sf::Texture numbers[10];
-
 	// Load .png files to the textures.
 	// If a file fails to load return a true value.
 	if(!texture[0].loadFromFile("red.png") ||
@@ -157,22 +154,21 @@ void Tetris::play()
 			// Display the background graphics and line count.
 			displayGame();
 
-			print = !shape.gameOver();
-			if(!print)
+			if(shape.gameOver())
 			{
 				resetGrid();
 			}
-
-			// If game is not over then print the tetris grid.
 			else
 			{
+				// If game is not over then print the tetris grid.
 				shape.updateGrid(false, grid);
 				printGrid();
 			}
 		}
-
 		else
+		{
 			displayGame();
+		}
 
 		// Update the window.
 		window.display();
@@ -183,7 +179,9 @@ void Tetris::play()
 void Tetris::printGrid()
 {
 	for(int i = 1; i < 11; i++)
+	{
 		for(int j = 1; j < 21; j++)
+		{
 			if(grid[i][j] >= 0 && grid[i][j] < 16)
 			{
 				block[grid[i][j]].setPosition(static_cast<float>(18 * i - 15),
@@ -192,22 +190,34 @@ void Tetris::printGrid()
 				window.draw(block[grid[i][j]]);
 
 				if(grid[i][j] > 7)
+				{
 					grid[i][j] = 7;
+				}
 			}
+		}
+	}
 }
 
 // Resets the grid to its blank values.
 void Tetris::resetGrid()
 {
 	for(int i = 1; i < 11; i++)
+	{
 		for(int j = 1; j < 21; j++)
+		{
 			grid[i][j] = 7;
+		}
+	}
 
 	for(int i = 0; i < 12; i++)
+	{
 		grid[i][0] = grid[i][21] = -1;
+	}
 
 	for(int j = 0; j < 22; j++)
+	{
 		grid[0][j] = grid[11][j] = -1;
+	}
 }
 
 // Display to show when game is over.

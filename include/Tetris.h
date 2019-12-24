@@ -45,11 +45,11 @@ private:
 
 	sf::RenderWindow window; // Window to display the game.
 
-	sf::Texture gameOverDisp; // Texture for the game over display.
+	sf::Texture texture[16];
+	sf::Texture numbers[10];
 	sf::Texture gameBackground; // Texture for the game background.
 
 	sf::Sprite block[16]; // Sprites for the game blocks.
 	sf::Sprite num[10]; // Sprites for the numbers.
-	sf::Sprite gOver; // Sprite for the game over display.
 	sf::Sprite gBack; // Sprite for the game background.
 };
