@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Shape.h"
+
 #include <SFML/Graphics.hpp>
 
 /*
@@ -14,10 +16,10 @@ public:
 	              // the grid to its default value.
 	~Tetris(void);
 
-	bool initialize(); // Initialize the game.
 	void play(); // Main game loop.
+
+private:
 	void printGrid(); // Display the grid in the window.
-	bool gameOver(); // Returns true if game is over.
 	void resetGrid(); // Resets the grid to its default values.
 	void displayGame(); // Dispalys the background and line
 	                    // count.
@@ -26,20 +28,24 @@ public:
 private:
 	Shape shape; // Define a Shape
 
-	bool pressed, print; // Boolean values indicating if a button is
-	                     // pressed and if you should print the grid.
+	// Boolean values indicating if a button is
+	// pressed and if you should print the grid.
+	bool pressed;
+	bool print;
 
 	int grid[12][22]; // Int array holding the value of every block
 	                  // in the game area.
 
-	int counter, lines, delay; // Int values holding a loop counter,
-	                           // line counter and delay value.
+	// Int values holding a loop counter,
+	// line counter and delay value.
+	unsigned counter;
+	unsigned lines;
 
 	sf::RenderWindow window; // Window to display the game.
-	sf::Texture texture[16]; // Textures for game blocks.
-	sf::Texture numbers[10]; // Textures for numbers.
+
 	sf::Texture gameOverDisp; // Texture for the game over display.
 	sf::Texture gameBackground; // Texture for the game background.
+
 	sf::Sprite block[16]; // Sprites for the game blocks.
 	sf::Sprite num[10]; // Sprites for the numbers.
 	sf::Sprite gOver; // Sprite for the game over display.

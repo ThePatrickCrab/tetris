@@ -1,9 +1,10 @@
+#pragma once
+
 /*
 This class stores X and Y choordinates of a object.
 You may request X or Y choordinates, set X and Y choordinates and
 add or subtract to the value of the choordinates.
 */
-#pragma once
 class Location
 {
 public:

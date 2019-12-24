@@ -1,9 +1,64 @@
 #include "Tetris.h"
 
+#include <exception>
+
 // Upon creation set variables to default values and set the grid
 // to its default (empty) state.
 Tetris::Tetris(void)
+    : shape()
+    , pressed(false)
+    , print(true)
+    , counter(0)
+    , lines(0)
+    , window(sf::VideoMode(273, 366, 32), "Tetris")
 {
+	sf::Texture texture[16];
+	sf::Texture numbers[10];
+
+	// Load .png files to the textures.
+	// If a file fails to load return a true value.
+	if(!texture[0].loadFromFile("red.png") ||
+	    !texture[1].loadFromFile("orange.png") ||
+	    !texture[2].loadFromFile("yellow.png") ||
+	    !texture[3].loadFromFile("green.png") ||
+	    !texture[4].loadFromFile("blue.png") ||
+	    !texture[5].loadFromFile("indigo.png") ||
+	    !texture[6].loadFromFile("violet.png") ||
+	    !texture[7].loadFromFile("back.png") ||
+	    !texture[8].loadFromFile("fallingRed.png") ||
+	    !texture[9].loadFromFile("fallingOrange.png") ||
+	    !texture[10].loadFromFile("fallingYellow.png") ||
+	    !texture[11].loadFromFile("fallingGreen.png") ||
+	    !texture[12].loadFromFile("fallingBlue.png") ||
+	    !texture[13].loadFromFile("fallingIndigo.png") ||
+	    !texture[14].loadFromFile("fallingViolet.png") ||
+	    !texture[15].loadFromFile("falling.png") ||
+	    !numbers[0].loadFromFile("num0.png") ||
+	    !numbers[1].loadFromFile("num1.png") ||
+	    !numbers[2].loadFromFile("num2.png") ||
+	    !numbers[3].loadFromFile("num3.png") ||
+	    !numbers[4].loadFromFile("num4.png") ||
+	    !numbers[5].loadFromFile("num5.png") ||
+	    !numbers[6].loadFromFile("num6.png") ||
+	    !numbers[7].loadFromFile("num7.png") ||
+	    !numbers[8].loadFromFile("num8.png") ||
+	    !numbers[9].loadFromFile("num9.png") ||
+	    !gameBackground.loadFromFile("tetrisBackground.png"))
+	{
+		throw std::runtime_error("Couldn't load resources");
+	}
+
+	// Assign textures to sprites.
+	for(int i = 0; i < 16; i++)
+	{
+		block[i].setTexture(texture[i]);
+		if(i < 10)
+		{
+			num[i].setTexture(numbers[i]);
+		}
+	}
+	gBack.setTexture(gameBackground);
+
 	counter = 0;
 	pressed = false;
 	print = true;
@@ -12,94 +67,6 @@ Tetris::Tetris(void)
 
 Tetris::~Tetris(void)
 {}
-
-/*
-This function will initialize the tetris game, it is called from main in
-order to setup the game. It will load textures and assign them to
-sprites, if any texture fails to load then it will return a true and the
-program will quit with an EXIT_FAILURE. If it loads everything
-sucessfully then it will create a window and return a false so that the
-program knows to continue.
-*/
-bool Tetris::initialize()
-{
-	// Load .png files to the textures.
-	// If a file fails to load return a true value.
-	if(!texture[0].loadFromFile("red.png"))
-		return true;
-	if(!texture[1].loadFromFile("orange.png"))
-		return true;
-	if(!texture[2].loadFromFile("yellow.png"))
-		return true;
-	if(!texture[3].loadFromFile("green.png"))
-		return true;
-	if(!texture[4].loadFromFile("blue.png"))
-		return true;
-	if(!texture[5].loadFromFile("indigo.png"))
-		return true;
-	if(!texture[6].loadFromFile("violet.png"))
-		return true;
-	if(!texture[7].loadFromFile("back.png"))
-		return true;
-	if(!texture[8].loadFromFile("fallingRed.png"))
-		return true;
-	if(!texture[9].loadFromFile("fallingOrange.png"))
-		return true;
-	if(!texture[10].loadFromFile("fallingYellow.png"))
-		return true;
-	if(!texture[11].loadFromFile("fallingGreen.png"))
-		return true;
-	if(!texture[12].loadFromFile("fallingBlue.png"))
-		return true;
-	if(!texture[13].loadFromFile("fallingIndigo.png"))
-		return true;
-	if(!texture[14].loadFromFile("fallingViolet.png"))
-		return true;
-	if(!texture[15].loadFromFile("falling.png"))
-		return true;
-
-	if(!numbers[0].loadFromFile("num0.png"))
-		return true;
-	if(!numbers[1].loadFromFile("num1.png"))
-		return true;
-	if(!numbers[2].loadFromFile("num2.png"))
-		return true;
-	if(!numbers[3].loadFromFile("num3.png"))
-		return true;
-	if(!numbers[4].loadFromFile("num4.png"))
-		return true;
-	if(!numbers[5].loadFromFile("num5.png"))
-		return true;
-	if(!numbers[6].loadFromFile("num6.png"))
-		return true;
-	if(!numbers[7].loadFromFile("num7.png"))
-		return true;
-	if(!numbers[8].loadFromFile("num8.png"))
-		return true;
-	if(!numbers[9].loadFromFile("num9.png"))
-		return true;
-
-	if(!gameBackground.loadFromFile("tetrisBackground.png"))
-		return true;
-
-	// Assign textures to sprites.
-	for(int i = 0; i < 16; i++)
-	{
-		block[i].setTexture(texture[i]);
-
-		if(i < 10)
-			num[i].setTexture(numbers[i]);
-	}
-
-	gBack.setTexture(gameBackground);
-
-	// Create the window for the game.
-	window.create(sf::VideoMode(273, 366, 32), "Tetris");
-
-	// Return a false value indicating that this process
-	// was completed correctly.
-	return false;
-}
 
 // Main game loop, contains event polling for user interaction with the
 // game.
@@ -173,7 +140,7 @@ void Tetris::play()
 		if(print)
 		{
 			// Set the delay length.
-			delay = 10000 / (shape.getLines() + 10) + 250;
+			unsigned delay = 10000 / (shape.getLines() + 10) + 250;
 
 			// If pre incremented counter is equal to delay then drop the
 			// shape 1 block and reset counter to 0.

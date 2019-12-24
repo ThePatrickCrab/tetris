@@ -1,12 +1,11 @@
 #include "Shape.h"
 #include <cstdlib>
-#include <time.h>
+#include <ctime>
 
 // Upon construction seed the random number generator and set lines to 0.
 Shape::Shape(void)
 {
 	lines = 0;
-	srand(time(NULL));
 }
 
 Shape::~Shape(void)
