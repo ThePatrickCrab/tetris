@@ -1,5 +1,7 @@
 #include "Tetris.h"
 
+#include <boost/dll.hpp>
+
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -16,35 +18,38 @@ Tetris::Tetris(void)
     , lines(0)
     , window(sf::VideoMode(273, 366, 32), "Tetris")
 {
+	const boost::filesystem::path basepath =
+	    boost::dll::program_location().parent_path() / "resources";
 	// Load .png files to the textures.
 	// If a file fails to load return a true value.
-	if(!texture[0].loadFromFile("red.png") ||
-	    !texture[1].loadFromFile("orange.png") ||
-	    !texture[2].loadFromFile("yellow.png") ||
-	    !texture[3].loadFromFile("green.png") ||
-	    !texture[4].loadFromFile("blue.png") ||
-	    !texture[5].loadFromFile("indigo.png") ||
-	    !texture[6].loadFromFile("violet.png") ||
-	    !texture[7].loadFromFile("back.png") ||
-	    !texture[8].loadFromFile("fallingRed.png") ||
-	    !texture[9].loadFromFile("fallingOrange.png") ||
-	    !texture[10].loadFromFile("fallingYellow.png") ||
-	    !texture[11].loadFromFile("fallingGreen.png") ||
-	    !texture[12].loadFromFile("fallingBlue.png") ||
-	    !texture[13].loadFromFile("fallingIndigo.png") ||
-	    !texture[14].loadFromFile("fallingViolet.png") ||
-	    !texture[15].loadFromFile("falling.png") ||
-	    !numbers[0].loadFromFile("num0.png") ||
-	    !numbers[1].loadFromFile("num1.png") ||
-	    !numbers[2].loadFromFile("num2.png") ||
-	    !numbers[3].loadFromFile("num3.png") ||
-	    !numbers[4].loadFromFile("num4.png") ||
-	    !numbers[5].loadFromFile("num5.png") ||
-	    !numbers[6].loadFromFile("num6.png") ||
-	    !numbers[7].loadFromFile("num7.png") ||
-	    !numbers[8].loadFromFile("num8.png") ||
-	    !numbers[9].loadFromFile("num9.png") ||
-	    !gameBackground.loadFromFile("tetrisBackground.png"))
+	if(!texture[0].loadFromFile((basepath / "red.png").string()) ||
+	    !texture[1].loadFromFile((basepath / "orange.png").string()) ||
+	    !texture[2].loadFromFile((basepath / "yellow.png").string()) ||
+	    !texture[3].loadFromFile((basepath / "green.png").string()) ||
+	    !texture[4].loadFromFile((basepath / "blue.png").string()) ||
+	    !texture[5].loadFromFile((basepath / "indigo.png").string()) ||
+	    !texture[6].loadFromFile((basepath / "violet.png").string()) ||
+	    !texture[7].loadFromFile((basepath / "back.png").string()) ||
+	    !texture[8].loadFromFile((basepath / "fallingRed.png").string()) ||
+	    !texture[9].loadFromFile((basepath / "fallingOrange.png").string()) ||
+	    !texture[10].loadFromFile((basepath / "fallingYellow.png").string()) ||
+	    !texture[11].loadFromFile((basepath / "fallingGreen.png").string()) ||
+	    !texture[12].loadFromFile((basepath / "fallingBlue.png").string()) ||
+	    !texture[13].loadFromFile((basepath / "fallingIndigo.png").string()) ||
+	    !texture[14].loadFromFile((basepath / "fallingViolet.png").string()) ||
+	    !texture[15].loadFromFile((basepath / "falling.png").string()) ||
+	    !numbers[0].loadFromFile((basepath / "num0.png").string()) ||
+	    !numbers[1].loadFromFile((basepath / "num1.png").string()) ||
+	    !numbers[2].loadFromFile((basepath / "num2.png").string()) ||
+	    !numbers[3].loadFromFile((basepath / "num3.png").string()) ||
+	    !numbers[4].loadFromFile((basepath / "num4.png").string()) ||
+	    !numbers[5].loadFromFile((basepath / "num5.png").string()) ||
+	    !numbers[6].loadFromFile((basepath / "num6.png").string()) ||
+	    !numbers[7].loadFromFile((basepath / "num7.png").string()) ||
+	    !numbers[8].loadFromFile((basepath / "num8.png").string()) ||
+	    !numbers[9].loadFromFile((basepath / "num9.png").string()) ||
+	    !gameBackground.loadFromFile(
+	        (basepath / "tetrisBackground.png").string()))
 	{
 		throw std::runtime_error("Couldn't load resources");
 	}

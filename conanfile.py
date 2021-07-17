@@ -14,7 +14,7 @@ class Tetris(ConanFile):
 	default_options = 'sfml:graphics=True', 'sfml:window=True'
 	generators = 'cmake'
 	exports_sources = 'CMakeLists.txt', 'include/*', 'src/*', 'resources/*'
-	requires = 'sfml/2.5.1'
+	requires = 'sfml/2.5.1', 'boost/1.76.0'
 
 	def _configure_cmake(self):
 		cmake = CMake(self)
